@@ -1,0 +1,20 @@
+class Cadastro(models.Model):
+    def upload_imagem_cliente(instance, filename):
+        return f"{instance.conta}-{filename}"
+    
+    nome = models.CharField(max_length=50)
+    nasc = models.CharField(max_length=50)
+    cpf = models.IntegerField()
+    # rg = models.CharField(max_length=20, default='')
+    # telefone = models.CharField(max_length=15, default='')
+    endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE, null=True)  
+    email = models.EmailField(unique=True)
+    senha = models.CharField(max_length=50)
+    # conta = models.CharField(max_length=10, unique=True, default='')
+    # criado_em = models.DateTimeField(default='')
+    # agencia = models.CharField(max_length=10,  default='0000')
+    # renda = models.CharField(max_length=10,  default='')
+    imagem = models.ImageField(upload_to=upload_imagem_cliente, blank=True, null=True) 
+    
+    def __str__(self):
+        return f'{self.nome} - {self.email} - {self.imagem} - {self.criado_em}'
